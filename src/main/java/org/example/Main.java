@@ -15,7 +15,6 @@ public class Main {
         String postalCode;
         boolean hasPartner;
         int fixedInterestPeriod;
-        // BigDecimal loanAmount;
 
         do {
             System.out.println("\n");
@@ -27,9 +26,6 @@ public class Main {
                 annualIncome = annualIncome.add(askAnnualIncome(sc, true));
             }
             fixedInterestPeriod = askFixedInterestPeriod(sc);
-
-            // TODO: Do something with this
-            // loanAmount = askLoanAmount(sc);
 
             displayData(annualIncome, hasStudentDebt, postalCode, hasPartner, fixedInterestPeriod);
         } while (!askConfirm(sc));
@@ -54,8 +50,8 @@ public class Main {
     public static void displayCalculations(BigDecimal annualIncome, boolean hasStudentDebt, int fixedInterestPeriod) {
         BigDecimal maxLoan = InterestUtils.calculateMaxLoan(annualIncome, hasStudentDebt);
         BigDecimal interestPerMonth = InterestUtils.calculateInterestPerMonth(maxLoan, fixedInterestPeriod);
-        BigDecimal repaymentPerMonth = InterestUtils.calculateRepaymentPerMonth(maxLoan, fixedInterestPeriod);
         BigDecimal totalMonthlyCharge = InterestUtils.calculateTotalMonthlyCharge(maxLoan, fixedInterestPeriod);
+        BigDecimal repaymentPerMonth = InterestUtils.calculateRepaymentPerMonth(maxLoan, fixedInterestPeriod);
         BigDecimal totalPayment = InterestUtils.calculateTotalPayment(maxLoan, fixedInterestPeriod);
 
         System.out.println("\n");
@@ -63,8 +59,8 @@ public class Main {
         System.out.println("  Uitkomst  ");
         System.out.println("============");
         System.out.println("Maximale hypotheek: " + maxLoan);
-        System.out.println("Rente per maand: " + interestPerMonth);
         System.out.println("Aflossing per maand: " + repaymentPerMonth);
+        System.out.println("Rente per maand: " + interestPerMonth);
         System.out.println("Totale maandbedrag: " + totalMonthlyCharge);
         System.out.println("Totale betaling: " + totalPayment);
     }
@@ -75,24 +71,6 @@ public class Main {
         while (true) {
             try {
                 System.out.print("Wat is het jaarinkomen van " + (hasPartner ? "de partner van " : "") + "de klant: ");
-                annualIncome = sc.nextBigDecimal();
-                sc.nextLine();
-            } catch (NumberFormatException ignored) {
-                System.out.println("Dat is niet een geldig jaarinkomen.");
-                continue;
-            }
-            break;
-        }
-
-        return annualIncome;
-    }
-
-    public static BigDecimal askLoanAmount(Scanner sc) {
-        BigDecimal annualIncome;
-
-        while (true) {
-            try {
-                System.out.print("Hoeveel wil de klant lenen?: ");
                 annualIncome = sc.nextBigDecimal();
                 sc.nextLine();
             } catch (NumberFormatException ignored) {
