@@ -37,4 +37,32 @@ public class MainIntegrationTest {
         assertTrue(programOutput.contains("Totale maandbedrag: 354.17"));
         assertTrue(programOutput.contains("Totale betaling: 127501.20"));
     }
+
+    // This fails
+    @Test
+    public void main_integrationTest_invalidPostalCode() {
+        // Create simulated user input
+        String annualIncomeInput = "12000\n";
+        String hasStudentDebtInput = "\n";
+        String postalCodeInput = "9679AB\n";
+        String simulatedInput = annualIncomeInput + hasStudentDebtInput + postalCodeInput;
+
+        // Set the input to the simulated input
+        ByteArrayInputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
+        System.setIn(in);
+
+        // Set the output to a different stream, so we can check the output with code
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
+        Main.main(null);
+        String programOutput = out.toString();
+
+        // Check the output
+        assertTrue(programOutput.contains("Maximale hypotheek: 51000.00"));
+        assertTrue(programOutput.contains("Aflossing per maand: 141.67"));
+        assertTrue(programOutput.contains("Rente per maand: 212.50"));
+        assertTrue(programOutput.contains("Totale maandbedrag: 354.17"));
+        assertTrue(programOutput.contains("Totale betaling: 127501.20"));
+    }
 }
