@@ -22,6 +22,6 @@ public class PostalCodeUtils {
             return false;
         }
 
-        return !INVALID_POSTAL_CODES.contains(postalCode.split(POSTAL_CODE_NUMBERS_REGEX)[0]);
+        return !INVALID_POSTAL_CODES.contains(postalCode.split(POSTAL_LETTERS_REGEX)[0]);
     }
 }
