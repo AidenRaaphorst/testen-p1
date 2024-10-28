@@ -1,8 +1,5 @@
 import org.example.utils.InterestUtils;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,7 +40,26 @@ public class InterestTests {
     }
 
     @Test
-    public void calculateRepaymentPerMonth_with255k_withoutDebt() {
+    public void calculateRepaymentPerMonth_with255k_30years() {
+        BigDecimal expected = BigDecimal.valueOf(708.33).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal actual = InterestUtils.calculateRepaymentPerMonth(BigDecimal.valueOf(255_000), 30);
 
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void calculateTotalMonthlyCharge_with255k_30years() {
+        BigDecimal expected = BigDecimal.valueOf(1770.83).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal actual = InterestUtils.calculateTotalMonthlyCharge(BigDecimal.valueOf(255_000), 30);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void calculateTotalPayment_with255k_30years() {
+        BigDecimal expected = BigDecimal.valueOf(637_498.80).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal actual = InterestUtils.calculateTotalPayment(BigDecimal.valueOf(255_000), 30);
+
+        assertEquals(expected, actual);
     }
 }
